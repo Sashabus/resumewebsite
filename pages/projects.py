@@ -1,12 +1,12 @@
 import dash
 from dash import html, dcc, Output, Input, callback
-from resumewebsite.assets.Stats import *
-from resumewebsite.pages.side_bar import sidebar
+from assets.Stats import *
+from pages.side_bar import sidebar
 import json
 import pandas as pd
 import dash_bootstrap_components as dbc
 
-with open('/resumewebsite/assets/data.json') as json_data:
+with open('/Users/macbook/PycharmProjects/resumewebsite/assets/data.json') as json_data:
     data = json.load(json_data)
 
 main_data = pd.DataFrame(data['data'])

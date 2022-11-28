@@ -1,6 +1,6 @@
 import pandas as pd
 import plotly.express as px
-from pycountry_convert import country_mappings, country_name_format, convert_countries, country_wikipedia
+from pycountry_convert import country_mappings
 
 
 class Time:

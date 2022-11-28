@@ -6,7 +6,7 @@ import json
 import pandas as pd
 import dash_bootstrap_components as dbc
 
-with open('/Users/macbook/PycharmProjects/resumewebsite/assets/data.json') as json_data:
+with open('assets/data.json') as json_data:
     data = json.load(json_data)
 
 main_data = pd.DataFrame(data['data'])

@@ -2,5 +2,8 @@ gunicorn
 pandas
 plotly
 dash
+dash-bootstrap-components
+dash-core-components
+dash-html-components
 pycountry
 pycountry-convert

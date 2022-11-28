@@ -41,7 +41,7 @@ layout = html.Div([
 
 aver_time_graph = Time.get_aver_graph(main_data)
 advertisement_graph = get_advertisement_graph(main_data)
-country_graph = get_country_graph(main_data)
+country_graph = Country.get_country_graph(main_data)
 
 
 @callback(

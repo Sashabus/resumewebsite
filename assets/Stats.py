@@ -1,6 +1,6 @@
 import pandas as pd
 import plotly.express as px
-from pycountry_convert.convert_countries import country_alpha2_to_country_alpha3
+from pycountry_convert import country_mappings, country_name_format, convert_countries, country_wikipedia
 
 
 class Time:
@@ -47,10 +47,30 @@ def get_advertisement_graph(dataframe):
                   title='percent of people who came from different ad resources')
 
 
-def get_country_graph(dataframe):
-    country_stats = dataframe[['cc', 'unique']].dropna()
-    country_stats['cc'] = country_stats['cc'].apply(country_alpha2_to_country_alpha3).dropna()
-    country_stats = country_stats.groupby('cc').sum()
-    return px.choropleth(country_stats, locations=country_stats.index, color='unique',
-                         hover_name=country_stats.index,
-                         color_continuous_scale=px.colors.sequential.Plasma)
+class Country:
+    @staticmethod
+    def country_alpha2_to_country_alpha3(country_2_code, ignore_non_elements=True):
+        """Convert country ISO 3166-1 Alpha-2 code to country ISO 3166-1 Alpha-3.
+        """
+        if country_2_code is None or len(country_2_code) != 2:
+            if ignore_non_elements:
+                return None
+            raise KeyError("Invalid Country Alpha-2 code: '{0}'".format(country_2_code))
+
+        dict_country_alpha2_to_country_alpha3 = country_mappings.map_country_alpha2_to_country_alpha3()
+
+        if country_2_code not in dict_country_alpha2_to_country_alpha3:
+            if ignore_non_elements:
+                return None
+            raise KeyError("Invalid Country Alpha-2 code: '{0}'".format(country_2_code))
+
+        return dict_country_alpha2_to_country_alpha3[country_2_code]
+
+    @classmethod
+    def get_country_graph(cls, dataframe):
+        country_stats = dataframe[['cc', 'unique']].dropna()
+        country_stats['cc'] = country_stats['cc'].apply(cls.country_alpha2_to_country_alpha3).dropna()
+        country_stats = country_stats.groupby('cc').sum()
+        return px.choropleth(country_stats, locations=country_stats.index, color='unique',
+                             hover_name=country_stats.index,
+                             color_continuous_scale=px.colors.sequential.Plasma)

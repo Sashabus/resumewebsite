@@ -16,16 +16,19 @@ def sidebar():
                     active="exact",
                 )
             )
+            print(f"added page {page['name']}")
+
         elif page["path"] == "/projects":
             nav_links.append(
                 dbc.NavLink(
                     [
-                        html.Div("swetrix-statistics", className="ms-2")
+                        html.Div("Swetrix stats", className="ms-2")
                     ],
                     href=page["path"],
                     active="exact",
                 )
             )
+            print(f"added page {page['name']}")
 
     return dbc.Nav(children=nav_links,
                    vertical=True,

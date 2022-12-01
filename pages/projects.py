@@ -11,7 +11,7 @@ with open('assets/data.json') as json_data:
 
 main_data = pd.DataFrame(data['data'])
 
-dash.register_page(__name__, order=1)
+dash.register_page(__name__, order=1, path="/projects")
 
 layout = html.Div([
     dbc.Row(
@@ -23,7 +23,8 @@ layout = html.Div([
             ),
             dbc.Col(
                 [
-                    dcc.Markdown("# Swetrix statistics", style={"textAlign": "center"}, className="ml-3")
+                    dcc.Markdown("# Swetrix statistics", style={"textAlign": "center"},
+                                 className="ml-3")
                 ], xs=8, sm=8, md=10, lg=10, xl=10, xxl=10
             )
         ]

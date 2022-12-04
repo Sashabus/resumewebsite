@@ -1,16 +1,15 @@
-import dash
-from dash import dcc
-import dash_bootstrap_components as dbc
+from dash import dcc, register_page
+from dash_bootstrap_components import Row, Col
 
-dash.register_page(__name__, order=2)
+register_page(__name__, order=2)
 
 green_rext = {"color": "green"}
 
 
 def layout():
-    return dbc.Row(
+    return Row(
         [
-            dbc.Col(
+            Col(
                 [
                     dcc.Markdown("# Oleksandr Kamenivskyy", className="mt-3"),
                     dcc.Markdown("### Student", className="mb-5"),

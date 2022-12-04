@@ -1,20 +1,19 @@
-import dash
-import dash_bootstrap_components as dbc
-from dash import dcc, html, Input, Output, callback
+from dash_bootstrap_components import Row, Col
+from dash import dcc, html, Input, Output, callback, register_page
 from assets.data_organisation import graph_1, graph_2
 from pages.side_bar import sidebar
 
-dash.register_page(__name__, path="/app1")
+register_page(__name__, path="/app1")
 
 layout = html.Div([
-    dbc.Row(
+    Row(
         [
-            dbc.Col(
+            Col(
                 [
                     sidebar()
                 ], xs=4, sm=4, md=2, lg=2, xl=2, xxl=2
             ),
-            dbc.Col(
+            Col(
                 [
                     dcc.Markdown("# Corruption impact on GDP per capita", style={"textAlign": "center"}, className="ml-3")
                 ], xs=8, sm=8, md=10, lg=10, xl=10, xxl=10
@@ -38,5 +37,6 @@ layout = html.Div([
     Input(component_id='year', component_property='value')
 )
 def fill_graphs(input_value):
+    # function that returns graph value depending on the input_value
     if input_value == "2021":
         return graph_1, graph_2

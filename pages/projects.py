@@ -1,27 +1,27 @@
-import dash
-from dash import html, dcc, Output, Input, callback
+from dash import html, dcc, Output, Input, callback, register_page
 from assets.Stats import *
 from pages.side_bar import sidebar
-import json
-import pandas as pd
-import dash_bootstrap_components as dbc
+from json import load
+from pandas import DataFrame
+from dash_bootstrap_components import Row, Col
 
 with open('assets/data.json') as json_data:
-    data = json.load(json_data)
+    data = load(json_data)
 
-main_data = pd.DataFrame(data['data'])
+main_data = DataFrame(data['data'])
+# reading data from assets/data.json and writing it into the main_data df
 
-dash.register_page(__name__, order=1, path="/projects")
+register_page(__name__, order=1, path="/projects")
 
 layout = html.Div([
-    dbc.Row(
+    Row(
         [
-            dbc.Col(
+            Col(
                 [
                     sidebar()
                 ], xs=4, sm=4, md=2, lg=2, xl=2, xxl=2
             ),
-            dbc.Col(
+            Col(
                 [
                     dcc.Markdown("# Swetrix statistics", style={"textAlign": "center"},
                                  className="ml-3")
@@ -50,6 +50,7 @@ country_graph = Country.get_country_graph(main_data)
     Input(component_id='select_graph', component_property='value')
 )
 def update_graph(input_value):
+    # Function that returns graph value depending on input value
     if input_value == "time":
         return aver_time_graph
     elif input_value == "advertisement":

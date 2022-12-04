@@ -1,11 +1,10 @@
-import dash
-from dash import html
+from dash import html, page_registry
 import dash_bootstrap_components as dbc
 
 
 def sidebar():
     nav_links = []
-    for page in dash.page_registry.values():
+    for page in page_registry.values():
         if page["path"].startswith("/app"):
             nav_links.append(
                 dbc.NavLink(
